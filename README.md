@@ -34,6 +34,8 @@ Problems:
 
 1)Search Bar, while {SearchTerm} is forwarded to AllThoughts, I have failed to implement it due to filtering thoughts it breaks Pagination, so I left it out. My goal was to allow filtering by hashtags. 
 
+-----------------------------------------------
+
 How application could be improved:
 
 1) Authentification and allowing to post new Thoughts to only authenticated users
