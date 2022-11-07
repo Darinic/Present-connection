@@ -1,0 +1,44 @@
+.thoughts {
+    height: 90vh;
+    display: grid;
+    align-items: center;
+
+    &__empty {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: $color-white;
+        font-size: 2.4rem;
+        font-weight: bold;
+    }
+
+    &__container {
+    margin-top: 7rem;
+
+    display: grid;
+    grid-template-columns:repeat(3, 30.333%);
+    grid-template-rows: repeat(3, minmax(min-content, 100px));
+    grid-gap: 2rem;
+    justify-content: center;
+    align-items: center;
+
+    & > * {
+        align-self: stretch;
+    }
+
+
+    @include respond(tab-land) {
+        grid-template-columns: repeat(2, 45%);
+        grid-template-rows: repeat(5, min-content) min-content;  
+        grid-gap: 2rem;
+    }
+
+    @include respond(tab-small) {
+        margin-top:10rem;
+        grid-template-columns: 90%;
+        grid-template-rows: repeat(9, min-content) min-content;
+    }
+    
+}
+}

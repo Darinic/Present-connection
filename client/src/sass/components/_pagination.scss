@@ -1,0 +1,35 @@
+.pagination {
+    &__container {
+        display: flex;
+        justify-content: center;
+        color: $color-white;
+        position: relative;
+    }
+
+    &__item {
+        padding: 5px;
+        font-size: 1.3rem;
+
+        &:hover {
+            cursor: pointer;
+            color: $color-present;
+        }
+
+
+        @include respond(tab-land) {
+            font-size: 1.4rem;
+            background-color: rgba($color-grey-dark, .4);
+            padding: 6px;
+            margin: 0 5px
+        }
+
+        @include respond(tab-small) {
+            font-size: 1.6rem;
+            background-color: rgba($color-grey-dark, .4);
+            padding: 8px;
+            margin: 0 5px
+        }
+
+        
+    }
+}
