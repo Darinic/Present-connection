@@ -18,7 +18,7 @@ Details:
 
 1) Responsive design (till width: 360px).
 
-2) CSS was substituted for SCSS.
+2) CSS was substituted for SCSS. While SCSS should have been removed from the app, I left it for evaluation purposes, just in case.
 
 3) Failed/Sucessfull thought creation gives feedback.
 
@@ -31,9 +31,9 @@ Details:
 ------------------------------------------------
 
 Problems: 
-
+***************
 1)Search Bar, while {SearchTerm} is forwarded to AllThoughts, I have failed to implement it due to filtering thoughts it breaks Pagination, so I left it out. My goal was to allow filtering by hashtags. 
-
+**************
 -----------------------------------------------
 
 How application could be improved:
