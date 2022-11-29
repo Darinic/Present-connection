@@ -30,7 +30,7 @@ const Homepage = () => {
         <p className="homepage__text">
           Check out what your colleagues have posted, just don't forget the
           umbrella
-          <img src={umbrella} className="homepage__umbrellaLogo" />
+          <img src={umbrella} alt="umbrella logo" className="homepage__umbrellaLogo" />
         </p>
         <div className="u-center">
           <button

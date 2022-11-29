@@ -1,28 +1,24 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import Message from "../utils/Message";
+import Message from "../../components/Message/Message";
 import { useNavigate } from "react-router-dom";
 
 import userPicture from "../../assets/img/user.png";
 import thinkingBubble from "../../assets/img/thinkingBubble.png";
 import hashtag from "../../assets/img/hashtag.png";
+import { URLRoutes, appRoutes } from "../../core/routes/routes";
 
 const NewThought = () => {
   const [messageText, setMessageText] = useState("");
   const [showMessage, setShowMessage] = useState(false);
-  const [newForm, setNewForm] = useState({
-    author: "",
-    thought: "",
-    hashtag1: "",
-    hashtag2: "",
-  });
+  const [newThought, setNewThought] = useState({});
 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    setNewForm({
-      ...newForm,
+    setNewThought({
+      ...newThought,
       [e.target.name]: e.target.value,
     });
   };
@@ -30,22 +26,10 @@ const NewThought = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/thoughts/newThought", newForm)
+      .post(URLRoutes.NEWTHOUGHT_URL, newThought)
       .then((res) => {
         if (res.data) {
-          setMessageText(
-            "Your thought has been added succesfully. You will be redirected shortly to all Posts!"
-          );
-          setNewForm({
-            author: "",
-            thought: "",
-            hashtag1: "",
-            hashtag2: "",
-          });
-          setShowMessage(true);
-          setTimeout(() => {
-            navigate("/allthoughts");
-          }, 2000);
+            navigate(appRoutes.ALLTHOUGHTS, {state:{message: "Your thought has been added succesfully. D"}});
         }
       })
       .catch((err) => {
@@ -76,7 +60,7 @@ const NewThought = () => {
             maxLength={30}
             required
             name="author"
-            value={newForm.author}
+            value={newThought.author}
             onChange={handleInputChange}
           />
         </div>
@@ -94,7 +78,7 @@ const NewThought = () => {
             maxLength={200}
             required
             name="thought"
-            value={newForm.thought}
+            value={newThought.thought}
             onChange={handleInputChange}
           />
         </div>
@@ -113,7 +97,7 @@ const NewThought = () => {
               maxLength={10}
               required
               name="hashtag1"
-              value={newForm.hashtag1}
+              value={newThought.hashtag1}
               onChange={handleInputChange}
             />
             <input
@@ -124,7 +108,7 @@ const NewThought = () => {
               maxLength={10}
               required
               name="hashtag2"
-              value={newForm.hashtag2}
+              value={newThought.hashtag2}
               onChange={handleInputChange}
             />
           </div>

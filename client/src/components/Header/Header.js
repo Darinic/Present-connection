@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../assets/svg/shower.svg";
 import { Link, useLocation } from "react-router-dom";
-import SearchBar from "../utils/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Header = (props) => {
   const location = useLocation();
@@ -9,7 +9,7 @@ const Header = (props) => {
     <div className="header">
       <div className="header__leftMenu">
         <Link to="/" className="header__navLink header__navLink--1">
-          <img className="header__logo" src={logo} />
+          <img className="header__logo" src={logo} alt="logo"/>
           Homepage
         </Link>
       </div>

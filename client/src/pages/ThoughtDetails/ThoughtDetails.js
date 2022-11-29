@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import FormatDate from "../utils/FormatDate";
+import FormatDate from "../../components/utils/FormatDate";
+import Loader from "../../components/Loader/Loader";
+import { URLRoutes } from "../../core/routes/routes";
 
 const ThoughtDetails = () => {
   const [thought, setThought] = useState({});
@@ -10,7 +12,7 @@ const ThoughtDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/thoughts/${id}`)
+      .get(`${URLRoutes.THOUGHTS_URL}/${id}`)
       .then((res) => {
         setThought(res.data.thought);
       })
@@ -21,7 +23,7 @@ const ThoughtDetails = () => {
   return (
     <>
       {isLoading ? (
-        <div className="loader">Loading</div>
+        <Loader text="Loading..." />
       ) : (
         <div className="details">
           <div className="details__container">
