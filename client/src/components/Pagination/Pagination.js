@@ -1,36 +1,31 @@
-import React from "react";
+import React from 'react';
 
-const Pagination = ({ currentPage, paginate, maxPages }) => {
-  const minPaginationPages = 5;
+import ReactPaginate from 'react-paginate';
 
-  const CreatePaginationPages = () => {
-    for (let i = 2; i <= maxPages && i <= minPaginationPages; i++) {
-      return (
-        <div className="pagination__item" onClick={() => paginate(i)}>
-          {i}
-        </div>
-      );
-    }
-  };
+const Pagination = ({ handlePageClick, maxPages }) => {
 
-  const CustomPaginationElement = (page, element = 1) => {
     return (
-      <div className="pagination__item" onClick={() => paginate(page)}>
-        {element}
+    <div className="pagination__container">
+        {/* <Paginatation
+          currentPage={currentPage}
+          paginate={paginate}
+          maxPages={maxPagesCalculator({ thoughts, thoughtsPerPage })}
+        /> */}
+        <ReactPaginate
+        previousLabel={"←"}
+        nextLabel={"→"}
+        breakLabel="..."
+        pageCount={maxPages}
+        pageRangeDisplayed={7}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination"}
+        previousLinkClassName={"pagination__link"}
+        nextLinkClassName={"pagination__link"}
+        disabledClassName={"pagination__link--disabled"}
+        activeClassName={"pagination__link--active"}
+      />
       </div>
     );
-  };
-
-  return (
-    <div className="pagination__container">
-      {currentPage !== 1 ? CustomPaginationElement(currentPage - 1, "<") : null}
-      {CustomPaginationElement(1)}
-      {CreatePaginationPages()}
-      {maxPages !== currentPage
-        ? CustomPaginationElement(currentPage + 1, ">")
-        : null}
-    </div>
-  );
-};
+}
 
 export default Pagination;

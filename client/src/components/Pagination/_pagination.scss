@@ -1,35 +1,35 @@
 .pagination {
-    &__container {
-        display: flex;
-        justify-content: center;
-        color: $color-white;
-        position: relative;
-    }
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    cursor: pointer;
 
-    &__item {
-        padding: 5px;
-        font-size: 1.3rem;
+    &__link {
+        font-weight: bold;
+      }
 
-        &:hover {
-            cursor: pointer;
-            color: $color-present;
-        }
+      & a {
+        padding: .7rem;
+    margin-right: 2px;
+    margin-left: 2px;
+    border-radius: .4rem;
+    border: 1px solid #6c7ac9;
+    color: #6c7ac9;
+    background: $color-white;
+      }
 
+  }
 
-        @include respond(tab-land) {
-            font-size: 1.4rem;
-            background-color: rgba($color-grey-dark, .4);
-            padding: 6px;
-            margin: 0 5px
-        }
+  .pagination__link--disabled a {
+    color: $color-grey-dark;
+    background: $color-linear-grey-2;
+    border: 1px solid $color-grey-dark;
+  }
 
-        @include respond(tab-small) {
-            font-size: 1.6rem;
-            background-color: rgba($color-grey-dark, .4);
-            padding: 8px;
-            margin: 0 5px
-        }
+  .pagination__link--active a {
+    color: $color-white;
+    background: $color-present;
+    font-weight: bold;
+  }
 
-        
-    }
-}
+  

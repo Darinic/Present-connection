@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import FormatDate from "../../components/utils/FormatDate";
-import Loader from "../../components/Loader/Loader";
-import { URLRoutes } from "../../core/routes/routes";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { URLRoutes } from "../../constants/routes";
 
 const ThoughtDetails = () => {
   const [thought, setThought] = useState({});
@@ -23,7 +23,7 @@ const ThoughtDetails = () => {
   return (
     <>
       {isLoading ? (
-        <Loader text="Loading..." />
+        <LoadingSpinner asOverlay />
       ) : (
         <div className="details">
           <div className="details__container">

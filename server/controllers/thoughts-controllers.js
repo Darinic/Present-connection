@@ -1,6 +1,7 @@
 const {validationResult} = require('express-validator');
 
 const Thought = require('../models/thought');
+const Auth = require('../models/auth');
 
 const getThoughts = async (req, res) => {
   let thoughts;
@@ -33,18 +34,37 @@ const createThought = async (req, res) => {
         return res.status(422).json({message: 'Invalid inputs passed, please check your data.'});      
     }
 
-    const {author, thought, hashtag1, hashtag2} = req.body;
+    const { thought, hashtag1, hashtag2} = req.body;
     const createdThought = new Thought({
-        author,
         thought,
         hashtag1,
         hashtag2,
+        creator: req.userData.userId
     });
+
+    let user;
+
     try {
-        await createdThought.save();
+        user = await Auth.findById(req.userData.userId);
     } catch (err) {
         return res.status(500).json({message: 'Creating thought failed, please try again later.'});
     }
+
+    if (!user) {
+        return res.status(404).json({message: 'Could not find user for provided id.'});
+    }
+
+    try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await createdThought.save({session: sess});
+        user.thoughts.push(createdThought);
+        await user.save({session: sess});
+        await sess.commitTransaction();
+    } catch (err) {
+        return res.status(500).json({message: 'Creating thought failed, please try again later.'});
+    }
+
     res.status(201).json({thought: createdThought});
 };
 

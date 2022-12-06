@@ -1,5 +1,6 @@
 const express = require('express');
 const {check} = require('express-validator');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
@@ -8,6 +9,8 @@ const thoughtsControllers = require('../controllers/thoughts-controllers');
 router.get('/', thoughtsControllers.getThoughts);
 
 router.get('/:tid', thoughtsControllers.GetThoughtById);
+
+router.use(checkAuth);
 
 router.post('/newThought',
 [

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import userPicture from "../../assets/img/user.png";
 import thinkingBubble from "../../assets/img/thinkingBubble.png";
 import hashtag from "../../assets/img/hashtag.png";
-import { URLRoutes, appRoutes } from "../../core/routes/routes";
+import { URLRoutes, appRoutes } from "../../constants/routes";
 
 const NewThought = () => {
   const [messageText, setMessageText] = useState("");
@@ -29,7 +29,7 @@ const NewThought = () => {
       .post(URLRoutes.NEWTHOUGHT_URL, newThought)
       .then((res) => {
         if (res.data) {
-            navigate(appRoutes.ALLTHOUGHTS, {state:{message: "Your thought has been added succesfully. D"}});
+            navigate(appRoutes.ALLTHOUGHTS, {state:{message: "Your thought has been added succesfully added."}});
         }
       })
       .catch((err) => {
@@ -47,23 +47,6 @@ const NewThought = () => {
       {showMessage && <Message text={messageText} onClear={handleClear} />}
       <form className="form__container" onSubmit={handleSubmit}>
         <h2 className="heading__secondary">Share Your Thought with us</h2>
-        <div className="form__inputBox">
-          <label className="form__label">
-            Introduce yourself
-            <img src={userPicture} alt="user logo" className="form__icon" />
-          </label>
-          <input
-            className="form__input"
-            type="text"
-            placeholder="Author (from 3 to 30 characters)"
-            minLength={3}
-            maxLength={30}
-            required
-            name="author"
-            value={newThought.author}
-            onChange={handleInputChange}
-          />
-        </div>
         <div className="form__inputBox">
           <label className="form__label">
             Your Thought

@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 
-const Message = (props) => {
+const Message = ({text, onClear}) => { 
+
   return (
     <div className="message">
-      <p className="message__text">{props.text}</p>
-      <button className={`btn btn--red`} onClick={props.onClear}>
+      <p className="message__text">{text}</p>
+      <button className={`btn btn--red`} onClick={onClear}>
         OK
       </button>
     </div>

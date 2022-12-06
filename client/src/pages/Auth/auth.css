@@ -1,0 +1,18 @@
+.auth {
+    background-image: url("../../assets/img/protagorasPhil.png");
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: left top 4rem;
+}
+
+@media screen and (max-width: 900px) {
+    .auth {
+        background-image: url("../../assets/img/protagorasPhil.png");
+        background-repeat: no-repeat;
+        background-size:contain;
+        background-position: bottom;
+    }
+}
+    
+
+    

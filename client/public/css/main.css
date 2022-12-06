@@ -313,6 +313,7 @@ body {
 }
 .header__leftMenu {
   float: left;
+  margin-right: 1rem;
 }
 @media only screen and (max-width: 43.75em) {
   .header__leftMenu {
@@ -344,25 +345,25 @@ body {
 .header__navLink--1 {
   margin-left: 0.5rem;
 }
-.header__navLink--2 {
-  margin-right: 4rem;
+.header__navLink--2, .header__navLink--3, .header__navLink--4 {
+  margin-right: 2rem;
 }
 @media only screen and (max-width: 43.75em) {
-  .header__navLink--2 {
-    margin-right: 2.5rem;
+  .header__navLink--2, .header__navLink--3, .header__navLink--4 {
+    margin-right: 1.5rem;
   }
 }
 @media only screen and (max-width: 31.25em) {
-  .header__navLink--2 {
+  .header__navLink--2, .header__navLink--3, .header__navLink--4 {
     margin-right: 0.5rem;
     padding: 0.6rem;
   }
 }
-.header__navLink--3 {
+.header__navLink--5 {
   margin-right: 1rem;
 }
 @media only screen and (max-width: 31.25em) {
-  .header__navLink--3 {
+  .header__navLink--5 {
     margin-right: 0rem;
   }
 }
@@ -614,35 +615,35 @@ body {
   z-index: 1;
 }
 
-.pagination__container {
+.pagination {
   display: flex;
   justify-content: center;
-  color: #fff;
-  position: relative;
-}
-.pagination__item {
-  padding: 5px;
-  font-size: 1.3rem;
-}
-.pagination__item:hover {
+  list-style: none;
   cursor: pointer;
-  color: #f05a22;
 }
-@media only screen and (max-width: 75em) {
-  .pagination__item {
-    font-size: 1.4rem;
-    background-color: rgba(119, 119, 119, 0.4);
-    padding: 6px;
-    margin: 0 5px;
-  }
+.pagination__link {
+  font-weight: bold;
 }
-@media only screen and (max-width: 43.75em) {
-  .pagination__item {
-    font-size: 1.6rem;
-    background-color: rgba(119, 119, 119, 0.4);
-    padding: 8px;
-    margin: 0 5px;
-  }
+.pagination a {
+  padding: 0.7rem;
+  margin-right: 2px;
+  margin-left: 2px;
+  border-radius: 0.4rem;
+  border: 1px solid #6c7ac9;
+  color: #6c7ac9;
+  background: #fff;
+}
+
+.pagination__link--disabled a {
+  color: #777;
+  background: #2c3e50;
+  border: 1px solid #777;
+}
+
+.pagination__link--active a {
+  color: #fff;
+  background: #f05a22;
+  font-weight: bold;
 }
 
 .details {
@@ -813,16 +814,54 @@ body {
   font-weight: bold;
 }
 
-.loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  color: #f05a22;
-  font-weight: bold;
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
 }
 
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #510077;
+  border-color: #510077 transparent #510077 transparent;
+  -webkit-animation: lds-dual-ring 1.2s linear infinite;
+          animation: lds-dual-ring 1.2s linear infinite;
+}
+
+.loading-spinner__overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #4169e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@-webkit-keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .searchbar__container {
   width: 14rem;
   margin-right: 0.7rem;
@@ -831,4 +870,108 @@ body {
   padding: 0.5rem;
   border-radius: 1rem;
   width: 100%;
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+@media only screen and (max-width: 75em) {
+  .auth {
+    height: 100vh;
+    background-size: bottom;
+  }
+}
+.auth__container {
+  width: 40rem;
+  margin: auto;
+  margin-top: 10rem;
+  text-align: center;
+  padding: 2rem;
+  background-image: linear-gradient(to bottom right, rgba(189, 195, 199, 0.9), rgba(44, 62, 80, 0.9));
+  border-radius: 1rem;
+  box-shadow: 0rem 2rem 4rem rgba(0, 0, 0, 0.4);
+}
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  margin-bottom: 1rem;
+}
+@media only screen and (max-width: 75em) {
+  .auth__form {
+    row-gap: 3rem;
+    align-items: space-around;
+  }
+}
+@media only screen and (max-width: 31.25em) {
+  .auth__form {
+    row-gap: 5rem;
+  }
+}
+.auth__input {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 1rem;
+}
+@media only screen and (max-width: 75em) {
+  .auth__input {
+    padding: 2rem;
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 31.25em) {
+  .auth__input {
+    padding: 3rem;
+    font-size: 3rem;
+  }
+}
+.auth__submit {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: #f05a22;
+  color: #fff;
+  cursor: pointer;
+}
+.auth__submit:hover {
+  background-color: #f83600;
+}
+@media only screen and (max-width: 75em) {
+  .auth__submit {
+    padding: 2rem;
+    font-size: 2rem;
+  }
+}
+.auth__switchAuthModeText {
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  margin-top: 1rem;
+}
+@media only screen and (max-width: 75em) {
+  .auth__switchAuthModeText {
+    font-size: 2rem;
+  }
+}
+.auth__switchAuthModeButton {
+  color: #f05a22;
+  font-size: 1.5rem;
+  text-decoration: none;
+  margin-top: 1rem;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.auth__switchAuthModeButton:hover {
+  color: #f83600;
+}
+@media only screen and (max-width: 75em) {
+  .auth__switchAuthModeButton {
+    font-size: 2rem;
+  }
 }/*# sourceMappingURL=main.css.map */
