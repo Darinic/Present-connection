@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ThinkingMan from "../../assets/img/thinking.png";
