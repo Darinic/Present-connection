@@ -4,46 +4,46 @@ import ThinkingMan from "../../assets/img/thinking.png";
 import umbrella from "../../assets/svg/umbrella.svg";
 
 const Homepage = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/allthoughts");
-  };
+	const handleClick = () => {
+		navigate("/allthoughts");
+	};
 
-  return (
-    <div className="homepage">
-      <div className="homepage__intro">
-        <h1 className="heading__primary">
+	return (
+		<div className="homepage">
+			<div className="homepage__intro">
+				<h1 className="heading__primary">
           Rain of <br /> thoughts
-        </h1>
-        <p className="homepage__text">
+				</h1>
+				<p className="homepage__text">
           Have you ever experienced those miniature epiphanies at{" "}
-          <span className="homepage__text--span">Present</span> Connection, at
+					<span className="homepage__text--span">Present</span> Connection, at
           the shower, while not being able to fall asleep or just strolling
           through the park?
-        </p>
-        <p className="homepage__text">
+				</p>
+				<p className="homepage__text">
           Perhaps you couldn't find whom to share them with?! Well... No
           problem, that's what Rain Of Thoughts is for! Share with your
           colleagues and we'll listen.
-        </p>
-        <p className="homepage__text">
+				</p>
+				<p className="homepage__text">
           Check out what your colleagues have posted, just don't forget the
           umbrella
-          <img src={umbrella} alt="umbrella logo" className="homepage__umbrellaLogo" />
-        </p>
-        <div className="u-center">
-          <button
-            onClick={handleClick}
-            className="btn btn--white btn--animated"
-          >
+					<img src={umbrella} alt="umbrella logo" className="homepage__umbrellaLogo" />
+				</p>
+				<div className="u-center">
+					<button
+						onClick={handleClick}
+						className="btn btn--white btn--animated"
+					>
             Click here
-          </button>
-        </div>
-      </div>
-      <img src={ThinkingMan} alt="Thinking man" className="homepage__image" />
-    </div>
-  );
+					</button>
+				</div>
+			</div>
+			<img src={ThinkingMan} alt="Thinking man" className="homepage__image" />
+		</div>
+	);
 };
 
 export default Homepage;

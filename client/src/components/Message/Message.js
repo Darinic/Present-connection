@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 
 const Message = ({text, onClear}) => { 
 
-  return (
-    <div className="message">
-      <p className="message__text">{text}</p>
-      <button className={`btn btn--red`} onClick={onClear}>
+	return (
+		<div className="message">
+			<p className="message__text">{text}</p>
+			<button className={"btn btn--red"} onClick={onClear}>
         OK
-      </button>
-    </div>
-  );
+			</button>
+		</div>
+	);
 };
 
 export default Message;
