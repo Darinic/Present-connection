@@ -4,6 +4,10 @@
     padding-top: 1.5rem;
     width: 100%;
     font-size: 1.9rem;
+
+    @include respond(tab-medium) {
+        display: none;
+    }
     
     @include respond(tab-small) {
         font-size: 2rem;
@@ -14,6 +18,7 @@
         font-size: 1.8rem;
         background-color: yellowgreen;
     }
+    
 
     &__leftMenu,
     &__rightMenu {

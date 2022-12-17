@@ -1,23 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../../context/auth-context";
 import "./auth.css";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Message from "../../components/Message/Message";
-import { URLRoutes } from "../../constants/routes";
+
+import { useNavigate } from "react-router-dom";
+import { URLRoutes, appRoutes } from "../../constants/routes";
+import { useAuth } from "../../hooks/auth-hook";
+import { useMessageContext } from "../../hooks/message-hook";
 
 const Auth = () => {
-	const auth = useContext(AuthContext);
+	const { login } = useAuth();
 	const [isLoginMode, setIsLoginMode] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [authForm, setAuthForm] = useState({});
-	const [messageText, setMessageText] = useState("");
-	const [showMessage, setShowMessage] = useState(false);
+	const { showMessage, message, setMessageHandler } = useMessageContext();
 
-
-	const handleClear = () => {
-		setShowMessage(false);
-	};
+	const navigate = useNavigate();
 
 	const switchModeHandler = () => {
 		setAuthForm({}); //DOESNT WORK
@@ -40,29 +39,29 @@ const Auth = () => {
 				setIsLoading(true);
 				const response = await axios.post(URLRoutes.LOGIN_URL, authForm);
 				setIsLoading(false);
-				auth.login(response.data.userId);
+				login(response.data.userId);
+
 			} catch (error) {
 				setIsLoading(false);
-				setMessageText(error.response.data.message);
-				setShowMessage(true);
+				setMessageHandler(error.response.data.message);
 			}
 		} else {
 			try {
 				setIsLoading(true);
 				const response = await axios.post(URLRoutes.SIGNUP_URL, authForm);
 				setIsLoading(false);
-				auth.login(response.data.userId);
+				login(response.data.userId);
+				navigate(appRoutes.ALLTHOUGHTS);
 			} catch (error) {
 				setIsLoading(false);
-				setMessageText(error.response.data.message);
-				setShowMessage(true);
+				setMessageHandler(error.response.data.message);
 			}
 		}
 	};
 
 	return (
 		<div className="auth">
-			{showMessage && <Message text={messageText} onClear={handleClear} />}
+			{showMessage && <Message text={message} />}
 			<div className="auth__container">
 				{isLoading && <LoadingSpinner asOverlay />}
 				<h2 className="heading__secondary">{isLoginMode ? "Login" : "Register"}</h2>

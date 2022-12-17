@@ -4,17 +4,15 @@ import ReactPaginate from "react-paginate";
 
 const Pagination = ({ handlePageClick, maxPages }) => {
 
+
+	console.log(maxPages);
 	return (
 		<div className="pagination__container">
-			{/* <Paginatation
-          currentPage={currentPage}
-          paginate={paginate}
-          maxPages={maxPagesCalculator({ thoughts, thoughtsPerPage })}
-        /> */}
 			<ReactPaginate
 				previousLabel={"←"}
 				nextLabel={"→"}
 				breakLabel="..."
+				initialPage={0}
 				pageCount={maxPages}
 				pageRangeDisplayed={7}
 				onPageChange={handlePageClick}

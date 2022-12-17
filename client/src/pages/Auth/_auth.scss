@@ -11,12 +11,16 @@
     &__container {
         width: 40rem;
         margin: auto;
-        margin-top: 10rem;
+        margin-top: 8rem;
         text-align: center;
         padding: 2rem;
         background-image: linear-gradient(to bottom right, rgba($color-linear-grey-1, .9), rgba($color-linear-grey-2, .9));
         border-radius: 1rem;
         box-shadow: 0rem 2rem 4rem rgba($color-black, .4);
+
+        @include respond(tab-medium) {
+            margin-top: 10rem;
+        }
     }
     
 

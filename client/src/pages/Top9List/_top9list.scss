@@ -1,0 +1,29 @@
+.top9List {
+    text-align: center;
+    margin-top: 8rem;
+
+    @include respond(tab-medium) {
+        margin-top: 10rem;
+    }
+
+    &__ButtonContainer {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 2rem;
+    }
+
+    &__choosingButton {
+        padding: 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 2rem 1rem rgba($color-black, .1);
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+        background-color: $color-grey-light;
+    }
+
+    &__choosingButton:hover {
+        transform: translateY(-0.1rem);
+        box-shadow: 0 0 2rem 1rem rgba($color-black, .15);
+    }
+}

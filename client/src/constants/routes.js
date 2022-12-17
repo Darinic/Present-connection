@@ -5,7 +5,7 @@ const appRoutes = {
 	THOUGHTDETAILS: "/thoughtdetails/:id",
 	AUTH: "/auth",
 	SIGNUP: "/signup",
-	TOP9THOUGHTS: "/top9thoughts",
+	TOP9LIST: "/top9list",
 	INCORRECTROUTE: "*"
 };
 

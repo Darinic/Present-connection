@@ -17,8 +17,6 @@ export const useAuth = () => {
 			token: token,
 			expiration: tokenExpirationDate.toISOString()
 		}));
-		console.log("login");
-		console.log(token);
 	}, []);
 
 	const logout = useCallback(() => {

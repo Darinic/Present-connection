@@ -4,15 +4,16 @@ import axios from "axios";
 import Message from "../../components/Message/Message";
 import { useNavigate } from "react-router-dom";
 
-import userPicture from "../../assets/img/user.png";
 import thinkingBubble from "../../assets/img/thinkingBubble.png";
 import hashtag from "../../assets/img/hashtag.png";
 import { URLRoutes, appRoutes } from "../../constants/routes";
 
+import { useMessageContext } from "../../hooks/message-hook";
+
 const NewThought = () => {
-	const [messageText, setMessageText] = useState("");
-	const [showMessage, setShowMessage] = useState(false);
+	const { message, showMessage, setMessageHandler } = useMessageContext();
 	const [newThought, setNewThought] = useState({});
+
 
 	const navigate = useNavigate();
 
@@ -29,22 +30,18 @@ const NewThought = () => {
 			.post(URLRoutes.NEWTHOUGHT_URL, newThought)
 			.then((res) => {
 				if (res.data) {
-					navigate(appRoutes.ALLTHOUGHTS, {state:{message: "Your thought has been added succesfully added."}});
+					navigate(appRoutes.ALLTHOUGHTS);
+					setMessageHandler("Your thought has been added succesfully added.");
 				}
 			})
 			.catch((err) => {
-				setMessageText(err.response.data.message);
-				setShowMessage(true);
+				setMessageHandler(err.response.data.message);
 			});
-	};
-
-	const handleClear = () => {
-		setShowMessage(false);
 	};
 
 	return (
 		<div className="form">
-			{showMessage && <Message text={messageText} onClear={handleClear} />}
+			{showMessage && <Message text={message} />}
 			<form className="form__container" onSubmit={handleSubmit}>
 				<h2 className="heading__secondary">Share Your Thought with us</h2>
 				<div className="form__inputBox">

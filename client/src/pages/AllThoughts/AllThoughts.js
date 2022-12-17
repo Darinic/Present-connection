@@ -1,48 +1,53 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { URLRoutes } from "../../constants/routes";
-import { useLocation } from "react-router-dom";
 
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import ThoughtItem from "../../components/ThoughItems/ThoughtItem";
 import Message from "../../components/Message/Message";
 import Pagination from "../../components/Pagination/Pagination";
-// import SearchBar from "../../components/SearchBar/SearchBar";
+import SearchBar from "../../components/SearchBar/SearchBar";
+
+import { useMessageContext } from "../../hooks/message-hook";
 
 const AllThoughts = () => {
 	const [thoughts, setThoughts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(0);
-	const [messageText, setMessageText] = useState("");
-	const [showMessage, setShowMessage] = useState(false);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [filteredThoughts, setFilteredThoughts] = useState([]);
+
+	const { message, showMessage } = useMessageContext();
 
 	const thoughtsPerPage = 9;
 
-	const offset = currentPage * thoughtsPerPage;
+	let offset = currentPage * thoughtsPerPage;
 
-	const currentPageThoughts = thoughts.slice(offset, offset + thoughtsPerPage);
+	const currentPageThoughtsHandler = () => {
+		if (filteredThoughts) {
+			return filteredThoughts.slice(
+				offset,
+				offset + thoughtsPerPage
+			);
+		} else {
+			return thoughts.slice(offset, offset + thoughtsPerPage);
+		}
+	};
 
-	const maxPages = Math.ceil(thoughts.length / thoughtsPerPage);
+	const maxPagesHandler = () => {
+		if(filteredThoughts) {
+			return Math.ceil(filteredThoughts.length / thoughtsPerPage);
+		} else {
+			return Math.ceil(thoughts.length / thoughtsPerPage);
+		}
+	};
 
 	function handlePageClick({ selected: selectedPage }) {
 		setCurrentPage(selectedPage);
 	}
 
-	const location = useLocation();
-
-	useEffect(() => {
-		if (location.state) {
-			setMessageText(location.state.message);
-			setShowMessage(true);
-			setTimeout(() => {
-				setShowMessage(false);
-			}, 3000);
-			window.history.replaceState(null, "");
-		}
-	}, [location]);
-
-	const handleClear = () => {
-		setShowMessage(false);
+	const handleSearch = (event) => {
+		setSearchTerm(event.target.value);
 	};
 
 	useEffect(() => {
@@ -55,21 +60,40 @@ const AllThoughts = () => {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, [setThoughts, setLoading, currentPageThoughts]);
+	}, []);
+
+	useEffect(() => {
+		if (searchTerm.length > 1) {
+			const results = thoughts.filter(
+				(thought) =>
+					thought.thought.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          thought.hashtag1.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          thought.hashtag2.toLowerCase().includes(searchTerm.toLowerCase())
+			);
+			offset = 0;
+			setCurrentPage(0);
+			setFilteredThoughts(results);
+		} else {
+			setFilteredThoughts(thoughts);
+		}
+	}, [searchTerm, setSearchTerm, thoughts]);
 
 	return (
 		<div className="thoughts">
-			{showMessage && <Message text={messageText} onClear={handleClear} />}
+			{showMessage && <Message text={message} />}
 			{thoughts.length === 0 && (
 				<div className="thoughts__empty">
           No Thoughts recorded, be the first one!
 				</div>
 			)}
+			<div className="thoughts__searchBar">
+				<SearchBar handleSearch={handleSearch} />
+			</div>
 			<div className="thoughts__container">
 				{loading ? (
 					<LoadingSpinner asOverlay />
 				) : (
-					currentPageThoughts.map((thought) => {
+					currentPageThoughtsHandler().map((thought) => {
 						return (
 							<ThoughtItem
 								key={thought._id}
@@ -82,7 +106,9 @@ const AllThoughts = () => {
 					})
 				)}
 			</div>
-			<Pagination handlePageClick={handlePageClick} maxPages={maxPages} />
+			<div className="thoughts__pagination">
+				<Pagination handlePageClick={handlePageClick} maxPages={maxPagesHandler()} />
+			</div>
 		</div>
 	);
 };

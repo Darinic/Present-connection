@@ -1,7 +1,12 @@
 .thoughts {
     height: 90vh;
-    display: grid;
-    align-items: center;
+    margin-top: 10rem;
+
+    &__searchBar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
 
     &__empty {
         position: absolute;
@@ -13,8 +18,19 @@
         font-weight: bold;
     }
 
+    &__pagination {
+        position: fixed;
+        bottom: 6rem;
+        left: 50%;
+        transform: translateX(-50%);
+
+        @include respond(tab-medium) {
+            bottom: 2rem;
+        }
+        
+    }
+
     &__container {
-    margin-top: 7rem;
 
     display: grid;
     grid-template-columns:repeat(3, 30.333%);
@@ -22,6 +38,7 @@
     grid-gap: 2rem;
     justify-content: center;
     align-items: center;
+    padding-bottom: 4rem;
 
     & > * {
         align-self: stretch;
@@ -35,7 +52,6 @@
     }
 
     @include respond(tab-small) {
-        margin-top:10rem;
         grid-template-columns: 90%;
         grid-template-rows: repeat(9, min-content) min-content;
     }
