@@ -1,21 +1,26 @@
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
-@import 'base/base';
-@import '../pages/Homepage/homepage';
-@import 'base/typography';
-@import 'base/animations';
-@import 'components/button';
-@import 'base/utilities';
-@import '../components/Header/header';
+@import 'Abstracts/variables';
+@import 'Abstracts/mixins';
+@import 'Base/base';
+@import 'Base/typography';
+@import 'Base/animations';
+@import 'Base/utilities';
+@import 'Components/button';
+
 @import '../app';
-@import '../pages/NewThought/newThought';
-@import '../pages/AllThoughts/thoughts';
-@import '../components/ThoughItems/thoughtItem';
-@import '../components/Pagination/pagination';
-@import '../pages/ThoughtDetails/thoughtDetail';
-@import '../components/Message/message';
-@import '../components/LoadingSpinner/loadingSpinner';
-@import '../components/Searchbar/searchbar';
-@import '../pages/Auth/auth';
-@import '../pages/Top9List/top9list';
-@import '../components/Header/minimizedHeader';
+
+@import '../Components/Header/header';
+@import '../Components/Header/minimizedHeader';
+@import '../Components/Inputs/DetailInput/detailInput';
+@import '../Components/Inputs/AuthInput/authInput';
+@import '../Components/LoadingSpinner/loadingSpinner';
+@import '../Components/Message/message';
+@import '../Components/Pagination/pagination';
+@import '../Components/Searchbar/searchbar';
+@import '../Components/Thought/thought';
+
+@import '../Pages/Auth/auth';
+@import '../Pages/Homepage/homepage';
+@import '../Pages/NewThought/newThought';
+@import '../Pages/ThoughtDetails/thoughtDetail';
+@import '../Pages/Thoughts/thoughts';
+@import '../Pages/Top9List/top9list';

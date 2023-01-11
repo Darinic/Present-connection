@@ -1,4 +1,4 @@
-const FormatDate = (date) => {
+const formatDate = (date) => {
 	const newDate = new Date(date);
 	const year = newDate.getFullYear();
 	const month = newDate.getMonth() + 1;
@@ -9,4 +9,4 @@ const FormatDate = (date) => {
 	return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
 
-export default FormatDate;
+export default formatDate;

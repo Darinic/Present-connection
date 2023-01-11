@@ -1,13 +1,13 @@
 import React from "react";
 
-const SearchBar = (props) => {
+const SearchBar = ({handleSearch}) => {
 	return (
 		<div className="searchbar__container">
 			<input
 				className="searchbar__input"
 				type="text"
 				placeholder="# Search"
-				onChange={props.handleSearch}
+				onChange={handleSearch}
 				maxLength="10"
 			/>
 

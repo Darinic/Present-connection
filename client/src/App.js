@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable indent */
+/* eslint-disable no-unused-vars */
+import React, {useState} from "react";
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -6,53 +8,34 @@ import {
 	Navigate,
 } from "react-router-dom";
 
-import Header from "./components/Header/Header";
-import { appRoutes } from "./constants/routes";
-import { AuthContext } from "./context/auth-context";
-import { useAuth } from "./hooks/auth-hook";
-import { MessageContext } from "./context/message-context";
-import { useMessageContext } from "./hooks/message-hook";
+import Header from "./Components/Header/Header";
+import { appRoutes } from "./Constants/routes";
+import { AuthContext } from "./Context/AuthContext";
+import { useAuth } from "./Hooks/AuthHook";
+import { MessageContext } from "./Context/MessageContext";
 
-import Homepage from "./pages/Homepage/Homepage";
-import AllThoughts from "./pages/AllThoughts/AllThoughts";
-import NewThought from "./pages/NewThought/NewThought";
-import ThoughtDetails from "./pages/ThoughtDetails/ThoughtDetails";
-import Auth from "./pages/Auth/Auth";
-import Top9List from "./pages/Top9List/Top9List";
+import Homepage from "./Pages/Homepage/Homepage";
+import Thoughts from "./Pages/Thoughts/Thoughts";
+import NewThought from "./Pages/NewThought/NewThought";
+import ThoughtDetails from "./Pages/ThoughtDetails/ThoughtDetails";
+import Auth from "./Pages/Auth/Auth";
+import Top9List from "./Pages/Top9List/Top9List";
+import Message from "./Components/Message/Message";
 
 function App() {
+	const [message, setMessage] = useState("");
 	const { token, login, logout, userId } = useAuth();
-	const { message, showMessage, setMessageHandler, onMessageClear } =
-    useMessageContext();
-
-	const constantRoutes = (
-		<>
-			<Route path={appRoutes.HOMEPAGE} exact element={<Homepage />} />
-			<Route path={appRoutes.ALLTHOUGHTS} element={<AllThoughts />} />
-			<Route path={appRoutes.THOUGHTDETAILS} element={<ThoughtDetails />} />
-			<Route path={appRoutes.TOP9LIST} element={<Top9List />} />
-			<Route
-				path={appRoutes.INCORRECTROUTE}
-				element={<Navigate to={appRoutes.ALLTHOUGHTS} />}
-			/>
-		</>
-	);
 
 	let ChangingRoutes;
 
 	if (token) {
 		ChangingRoutes = (
-			<>
-				{constantRoutes}
 				<Route path={appRoutes.NEWTHOUGHT} element={<NewThought />} />
-			</>
 		);
 	} else {
-		ChangingRoutes = (
-			<>
-				{constantRoutes}
+		ChangingRoutes = 
+		(
 				<Route path={appRoutes.AUTH} element={<Auth />} />
-			</>
 		);
 	}
 
@@ -67,12 +50,20 @@ function App() {
 			}}
 		>
 			<MessageContext.Provider
-				value={{ message, setMessageHandler, showMessage, onMessageClear }}
+				value={{ message, setMessage }}
 			>
 				<Router>
 					<div className="container">
 						<Header />
-						<Routes>{ChangingRoutes}</Routes>
+						<Message />
+						<Routes>
+							<Route path={appRoutes.HOMEPAGE} exact element={<Homepage />} />
+							<Route path={appRoutes.ALLTHOUGHTS} element={<Thoughts />} />
+							<Route path={appRoutes.THOUGHTDETAILS} element={<ThoughtDetails />} />
+							<Route path={appRoutes.TOP9LIST} element={<Top9List />} />
+							<Route path={appRoutes.INCORRECTROUTE} element={<Navigate to={appRoutes.ALLTHOUGHTS} />} />
+							{ChangingRoutes}
+						</Routes>
 					</div>
 				</Router>
 			</MessageContext.Provider>

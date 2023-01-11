@@ -9,12 +9,14 @@ const appRoutes = {
 	INCORRECTROUTE: "*"
 };
 
-const URLRoutes = {
-	THOUGHTS_URL: "http://localhost:5000/api/thoughts",
-	NEWTHOUGHT_URL: "http://localhost:5000/api/thoughts/newThought",
-	LOGIN_URL: "http://localhost:5000/api/auth/login",
-	SIGNUP_URL: "http://localhost:5000/api/auth/signup",
+const {REACT_APP_BACKEND_PATH} = process.env;
+
+const APIRoutes = {
+	THOUGHTS: `${REACT_APP_BACKEND_PATH}thoughts`,
+	NEWTHOUGHT: `${REACT_APP_BACKEND_PATH}newThought`,
+	LOGIN: `${REACT_APP_BACKEND_PATH}auth/login`,
+	SIGNUP: `${REACT_APP_BACKEND_PATH}auth/signup`,
 
 };
 
-export { appRoutes, URLRoutes };
+export { appRoutes, APIRoutes };

@@ -1,11 +1,12 @@
+/* eslint-disable indent */
 import { useState, useEffect, useCallback } from "react";
 
 let logoutTimer;
 
 export const useAuth = () => {
-	const [token, setToken] = useState(false);
+	const [token, setToken] = useState(null);
 	const [tokenExpirationDate, setTokenExpirationDate] = useState();
-	const [userId, setUserId] = useState(false);
+	const [userId, setUserId] = useState(null);
 
 	const login = useCallback((uid, token, expirationDate) => {
 		setToken(token);
@@ -28,11 +29,9 @@ export const useAuth = () => {
 
 	useEffect(() => {
 		const storedData = JSON.parse(localStorage.getItem("userData"));
-		if (
-			storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
-		) {
+		if (storedData && storedData.token &&
+			new Date(storedData.expiration) > new Date()) 
+			{
 			login(
 				storedData.userId,
 				storedData.token,

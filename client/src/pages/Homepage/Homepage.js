@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ThinkingMan from "../../assets/img/thinking.png";
-import umbrella from "../../assets/svg/umbrella.svg";
+import ThinkingMan from "../../Assets/Img/thinking.png";
+import umbrella from "../../Assets/Svg/umbrella.svg";
+import { appRoutes } from "../../Constants/routes";
 
 const Homepage = () => {
 	const navigate = useNavigate();
 
 	const handleClick = () => {
-		navigate("/allthoughts");
+		navigate(appRoutes.ALLTHOUGHTS);
 	};
 
 	return (

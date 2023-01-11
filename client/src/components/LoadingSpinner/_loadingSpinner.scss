@@ -1,14 +1,14 @@
 .lds-dual-ring {
     display: inline-block;
-    width: 64px;
-    height: 64px;
+    width: 8rem;
+    height: 8rem;
   }
   
   .lds-dual-ring:after {
     content: ' ';
     display: block;
-    width: 46px;
-    height: 46px;
+    width: 7rem;
+    height: 7rem;
     margin: 1px;
     border-radius: 50%;
     border: 5px solid #510077;
@@ -17,15 +17,11 @@
   }
   
   .loading-spinner__overlay {
-    height: 100%;
-    width: 100%;
     position: absolute;
-    top: 0;
-    left: 0;
-    background: $color-royalblue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
   }
   
   @keyframes lds-dual-ring {

@@ -15,7 +15,6 @@
 
         display: grid;
         grid-template-rows: repeat(5, minmax(auto-fit, 1fr));
-        align-items: center;
     }
 
     &__text {
@@ -24,7 +23,7 @@
         font-size: 1.6rem;
         letter-spacing: 2;
         text-align: justify;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         min-width: none;
 
         &--span {
@@ -39,7 +38,7 @@
     }
 
     &__image {
-        height: 100%;
+        max-height: 80vh;
         width: 100%;
         align-self: center;
 

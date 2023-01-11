@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ThoughtItem = (props) => {
+const Thought = (props) => {
 	return (
 		<Link to={`/thoughtdetails/${props.id}`} className="item__link">
 			<div className="item">
@@ -21,4 +21,4 @@ const ThoughtItem = (props) => {
 	);
 };
 
-export default ThoughtItem;
+export default Thought;

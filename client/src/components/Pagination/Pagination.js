@@ -4,8 +4,6 @@ import ReactPaginate from "react-paginate";
 
 const Pagination = ({ handlePageClick, maxPages }) => {
 
-
-	console.log(maxPages);
 	return (
 		<div className="pagination__container">
 			<ReactPaginate

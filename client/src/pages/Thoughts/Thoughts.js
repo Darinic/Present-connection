@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { URLRoutes } from "../../constants/routes";
+import { APIRoutes } from "../../Constants/routes";
 
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import ThoughtItem from "../../components/ThoughItems/ThoughtItem";
-import Message from "../../components/Message/Message";
-import Pagination from "../../components/Pagination/Pagination";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import Thought from "../../Components/Thought/Thought";
+import Pagination from "../../Components/Pagination/Pagination";
+import SearchBar from "../../Components/SearchBar/SearchBar";
+import { MessageContext } from "../../Context/MessageContext";
 
-import { useMessageContext } from "../../hooks/message-hook";
-
-const AllThoughts = () => {
+const Thoughts = () => {
 	const [thoughts, setThoughts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredThoughts, setFilteredThoughts] = useState([]);
 
-	const { message, showMessage } = useMessageContext();
-
 	const thoughtsPerPage = 9;
+
+	const { setMessage } = useContext(MessageContext);
 
 	let offset = currentPage * thoughtsPerPage;
 
@@ -34,7 +32,7 @@ const AllThoughts = () => {
 		}
 	};
 
-	const maxPagesHandler = () => {
+	const calculateMaxPages = () => {
 		if(filteredThoughts) {
 			return Math.ceil(filteredThoughts.length / thoughtsPerPage);
 		} else {
@@ -51,15 +49,18 @@ const AllThoughts = () => {
 	};
 
 	useEffect(() => {
-		axios
-			.get(URLRoutes.THOUGHTS_URL)
-			.then((res) => {
-				setThoughts(res.data.thoughts.reverse());
+		const fetchThoughts = async () => {
+			try {
+				const result = await axios.get(APIRoutes.THOUGHTS);
+				setThoughts(result.data.thoughts.reverse());
+			} 
+			catch (error) {
+				setMessage(error.response.data.message);
+			} finally {
 				setLoading(false);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			}
+		};
+		fetchThoughts();
 	}, []);
 
 	useEffect(() => {
@@ -80,7 +81,6 @@ const AllThoughts = () => {
 
 	return (
 		<div className="thoughts">
-			{showMessage && <Message text={message} />}
 			{thoughts.length === 0 && (
 				<div className="thoughts__empty">
           No Thoughts recorded, be the first one!
@@ -95,7 +95,7 @@ const AllThoughts = () => {
 				) : (
 					currentPageThoughtsHandler().map((thought) => {
 						return (
-							<ThoughtItem
+							<Thought
 								key={thought._id}
 								id={thought._id}
 								thought={thought.thought}
@@ -107,10 +107,10 @@ const AllThoughts = () => {
 				)}
 			</div>
 			<div className="thoughts__pagination">
-				<Pagination handlePageClick={handlePageClick} maxPages={maxPagesHandler()} />
+				<Pagination handlePageClick={handlePageClick} maxPages={calculateMaxPages()} />
 			</div>
 		</div>
 	);
 };
 
-export default AllThoughts;
+export default Thoughts;

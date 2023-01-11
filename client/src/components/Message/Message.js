@@ -1,26 +1,32 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import { MessageContext } from "../../Context/MessageContext";
 
-import { useMessageContext } from "../../hooks/message-hook";
+const Message = () => {
+	const {message, setMessage } = useContext(MessageContext);
 
-const Message = ({text}) => { 
-	const { onMessageClear, showMessage } = useMessageContext();
+	const onMessageClear = () => {
+		setMessage("");
+	};
 
 	useEffect(() => {
-		if(!showMessage) return;
-		
 		const timer = setTimeout(() => {
-			onMessageClear();
-		}, 3000);
+			setMessage("");
+		}, 2500);
 		return () => clearTimeout(timer);
-	}, [onMessageClear, showMessage]);
+	}, [message]);
 
-	return (	 
-		<div className="message">
-			<p className="message__text">{text}</p>
-			<button className={"btn btn--red"} onClick={onMessageClear}>
-        OK
-			</button>
-		</div>
+
+	return (
+		<>
+			{message && (
+				<div className="message">
+					<p className="message__text">{message}</p>
+					<button className={"btn btn--red"} onClick={onMessageClear}>
+						OK
+					</button>
+				</div>
+			)}
+		</>
 	);
 };
 

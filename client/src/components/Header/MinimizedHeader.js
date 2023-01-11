@@ -1,9 +1,16 @@
 import React, {useContext} from "react";
-import { appRoutes } from "../../constants/routes";
-import { AuthContext } from "../../context/auth-context";
+import { Link } from "react-router-dom";
+import { appRoutes } from "../../Constants/routes";
+import { AuthContext } from "../../Context/AuthContext";
 
 const MinimizedHeader = () => {
 	const auth = useContext(AuthContext);
+
+	const closeMenu = () => {
+		setTimeout(() => {
+			document.querySelector(".navigation__checkbox").checked = false;
+		}, 500);
+	};
 
 	return (
 		<div className="navigation">
@@ -19,12 +26,12 @@ const MinimizedHeader = () => {
 
 			<div className="navigation__nav">
 				<ul className="navigation__list">
-					<li className="navigation__item"><a href={appRoutes.HOMEPAGE} className="navigation__link">Homepage</a></li>
-					<li className="navigation__item"><a href={appRoutes.ALLTHOUGHTS} className="navigation__link">All Thoughts</a></li>
-					<li className="navigation__item"><a href={appRoutes.TOP9LIST} className="navigation__link">Top 9 List</a></li>
-					{auth.isLoggedIn && <li className="navigation__item"><a href={appRoutes.NEWTHOUGHT} className="navigation__link">New Thought</a></li>}
-					{auth.isLoggedIn && <li onClick={auth.logout} className="navigation__item"><a href={appRoutes.ALLTHOUGHTS} className="navigation__link">Book now</a></li>}
-					{!auth.isLoggedIn && <li className="navigation__item"><a href={appRoutes.AUTH} className="navigation__link">Login</a></li>}
+					<li className="navigation__item"><Link to={appRoutes.HOMEPAGE} onClick={closeMenu} className="navigation__link">Homepage</Link></li>
+					<li className="navigation__item"><Link to={appRoutes.ALLTHOUGHTS} onClick={closeMenu} className="navigation__link">All Thoughts</Link></li>
+					<li className="navigation__item"><Link to={appRoutes.TOP9LIST} onClick={closeMenu} className="navigation__link">Top 9 List</Link></li>
+					{auth.isLoggedIn && <li className="navigation__item"><Link to={appRoutes.NEWTHOUGHT} onClick={closeMenu} className="navigation__link">New Thought</Link></li>}
+					{auth.isLoggedIn && <li onClick={auth.logout} className="navigation__item"><Link  to={appRoutes.ALLTHOUGHTS} onClick={closeMenu} className="navigation__link">Book now</Link></li>}
+					{!auth.isLoggedIn && <li className="navigation__item"><Link to={appRoutes.AUTH} onClick={closeMenu} className="navigation__link">Login</Link></li>}
 				</ul>
 			</div>
 		</div>

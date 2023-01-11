@@ -76,13 +76,17 @@ const login = async (req, res, next) => {
 
     let existingUser;
 
-    try {
+    try 
+    {
         existingUser = await Auth.findOne({email : email});
-    } catch (err) {
+    } 
+    catch(err)
+    {
         return res.status(500).json({message: 'Logging in failed, please try again later.'});
     }
 
-    if (!existingUser) {
+    if (!existingUser) 
+    {
         return res.status(403).json({message: 'Invalid credentials, could not log you in.'});
     }
 

@@ -1,17 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useState } from "react";
 import axios from "axios";
-import Message from "../../components/Message/Message";
 import { useNavigate } from "react-router-dom";
+import { MessageContext } from "../../Context/MessageContext";
 
-import thinkingBubble from "../../assets/img/thinkingBubble.png";
-import hashtag from "../../assets/img/hashtag.png";
-import { URLRoutes, appRoutes } from "../../constants/routes";
-
-import { useMessageContext } from "../../hooks/message-hook";
+import thinkingBubble from "../../Assets/Img/thinkingBubble.png";
+import hashtag from "../../Assets/Img/hashtag.png";
+import { APIRoutes, appRoutes } from "../../Constants/routes";
 
 const NewThought = () => {
-	const { message, showMessage, setMessageHandler } = useMessageContext();
+	const {setMessage} = useContext(MessageContext);
 	const [newThought, setNewThought] = useState({});
 
 
@@ -24,24 +22,23 @@ const NewThought = () => {
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		axios
-			.post(URLRoutes.NEWTHOUGHT_URL, newThought)
-			.then((res) => {
-				if (res.data) {
-					navigate(appRoutes.ALLTHOUGHTS);
-					setMessageHandler("Your thought has been added succesfully added.");
-				}
-			})
-			.catch((err) => {
-				setMessageHandler(err.response.data.message);
-			});
+		try {
+			const result = await axios.post(APIRoutes.NEWTHOUGHT, newThought);
+			if (result.data) 
+			{
+				navigate(appRoutes.ALLTHOUGHTS);
+				setMessage("Your thought has been added succesfully added.");
+			}
+		} catch (err) 
+		{
+			setMessage(err.response.data.message);
+		}
 	};
 
 	return (
 		<div className="form">
-			{showMessage && <Message text={message} />}
 			<form className="form__container" onSubmit={handleSubmit}>
 				<h2 className="heading__secondary">Share Your Thought with us</h2>
 				<div className="form__inputBox">
